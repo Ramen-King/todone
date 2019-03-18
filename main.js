@@ -30,16 +30,19 @@ function init() {
 
 function addTodo(event) {
     // Stop page from reloading on button click.
-    event.preventDefault()
+    event.preventDefault();
 
     // Get new todo from the new todo input field.
-    const input = document.getElementById('new-todo').value;
+
+    const newToDo = document.querySelector('#new-todo').value;
     
     // Clear the input field of all text.
-    
-
+    const inputs = document.querySelectorAll('input');
+    for(let i = 0; i < inputs.length; i++) {
+        inputs[i].value = '';
+    }
     // Put the todo and its "done-ness" in their respective arrays.
-    
+    todos.push(newToDo);
 
     // Create a new html element and put our new todo's text in there.
     
@@ -55,7 +58,7 @@ function addTodo(event) {
 
 function clearAllTodos(event) {
     // Stop page from reloading on button click.
-
+    event.preventDefault()
     
     // Remove all todos from BOTH arrays.
 
@@ -67,7 +70,7 @@ function clearAllTodos(event) {
 
 function clearDoneTodos(event) {
     // Stop page from reloading on button click.
-
+    event.preventDefault()
     /*
         Find which todos need to be removed and remove them from BOTH arrays.
         If you did it right when making them, you should be able to check the
