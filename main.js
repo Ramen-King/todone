@@ -26,6 +26,11 @@ function init() {
     // When they click the clear all todos button, run `clearAllTodos`.
     document.getElementById('clear-all-todos') 
         .addEventListener('click', clearAllTodos)
+    
+    // Add an event listener on the newly created html element to launch
+    // `toggleDone` when it's clicked.
+    document.querySelector('li')
+        .addEventListener('click', toggleDone)
 }
 
 function addTodo(event) {
@@ -33,14 +38,15 @@ function addTodo(event) {
     event.preventDefault();
 
     // Get new todo from the new todo input field.
-
     const newToDo = document.querySelector('#new-todo').value;
+
     
     // Clear the input field of all text.
     const inputs = document.querySelectorAll('input');
     for(let i = 0; i < inputs.length; i++) {
         inputs[i].value = '';
     }
+    
     // Put the todo and its "done-ness" in their respective arrays.
     todos.push(newToDo);
 
@@ -48,14 +54,9 @@ function addTodo(event) {
     const ol = document.querySelector('#todo-list');
     const newLi = document.createElement('li');
     newLi.innerText = newToDo;
-    ol.appendChild(newLi);
-    
-    // Add an event listener on the newly created html element to launch
-    // `toggleDone` when it's clicked.
-
 
     // Put our new element on the list part of our page!
-
+    ol.appendChild(newLi);
 }
 
 
@@ -64,7 +65,8 @@ function clearAllTodos(event) {
     event.preventDefault()
     
     // Remove all todos from BOTH arrays.
-
+    todos = [];
+    isDone = [];
     
     // Remove all todos from the html.
     // You'll have to write that function too, but we'll call it here:
@@ -106,7 +108,7 @@ function clearDoneTodos(event) {
 function toggleDone(event) {
     // No need to run `event.preventDefault` here; that default behavior only
     // applies to buttons.
-    
+    const done = document.querySelector('li').nodeValue
     // Grab the HTML element that was clicked.
     // If you don't know, the event parameter has what you need... somewhere.
 
