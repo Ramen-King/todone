@@ -45,7 +45,10 @@ function addTodo(event) {
     todos.push(newToDo);
 
     // Create a new html element and put our new todo's text in there.
-    
+    const ol = document.querySelector('#todo-list');
+    const newLi = document.createElement('li');
+    newLi.innerText = newToDo;
+    ol.appendChild(newLi);
     
     // Add an event listener on the newly created html element to launch
     // `toggleDone` when it's clicked.
