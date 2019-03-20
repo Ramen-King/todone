@@ -27,10 +27,8 @@ function init() {
     document.getElementById('clear-all-todos') 
         .addEventListener('click', clearAllTodos)
     
-    // Add an event listener on the newly created html element to launch
-    // `toggleDone` when it's clicked.
-    document.querySelector('li')
-        .addEventListener('click', toggleDone)
+    
+   
 }
 
 function addTodo(event) {
@@ -49,7 +47,7 @@ function addTodo(event) {
     
     // Put the todo and its "done-ness" in their respective arrays.
     todos.push(newToDo);
-
+    
     // Create a new html element and put our new todo's text in there.
     const ol = document.querySelector('#todo-list');
     const newLi = document.createElement('li');
@@ -57,6 +55,9 @@ function addTodo(event) {
 
     // Put our new element on the list part of our page!
     ol.appendChild(newLi);
+     // Add an event listener on the newly created html element to launch
+    // `toggleDone` when it's clicked.
+        newLi.addEventListener('click', toggleDone)
 }
 
 
@@ -85,8 +86,24 @@ function clearDoneTodos(event) {
 
         One way to do this is to build up a new array. Give that a try first!
 
-    */
+    */ 
+    const ol = document.querySelector('#todo-list');
+    let index ;
+    const newTodos = [];
+    const newIsDone = [];
+    for(let i = 0; i < isDone.length; i++){
+        if(isDone[i] === true){
+            newTodos.push(todos[i]);
+            newIsDone.push(isDone[i]);
+            todos = newTodos;
+            isDone = newIsDone;
+        }
+    }
 
+                
+                
+      
+   
 
 
     /*
@@ -108,20 +125,37 @@ function clearDoneTodos(event) {
 function toggleDone(event) {
     // No need to run `event.preventDefault` here; that default behavior only
     // applies to buttons.
-    const done = document.querySelector('li').nodeValue
+    console.log('does it work?');
+    
     // Grab the HTML element that was clicked.
     // If you don't know, the event parameter has what you need... somewhere.
-
-
+    const Ol = document.querySelector('#todo-list');
+    const currentLi = event.target;
+    let index;
+    
     // Find the index of the array that this todo resides in. There are a couple
     // ways to do this, and I'm sure you'll figure one out!
-
+    for(let i = 0; i < Ol.childNodes.length; i++){
+       if(Ol.childNodes[i].innerText === currentLi.innerText){
+        index = i;
+        }
+    }
+    console.log(todos);
+    console.log(index);
 
     // *IF* it's not done yet, apply strikethrough. Otherwise, take that
     // strikethrough away!
+    if(isDone[index]){
+       currentLi.style.textDecoration = "none";
+    } else {
+       currentLi.style.textDecoration = "line-through"
+    };
 
 
     // Toggle the "done-ness" of the same todo, using the isDone array.
+    isDone[index] = !isDone[index];
+    
+    console.log(isDone)
 
 }
 
@@ -136,8 +170,5 @@ function removeAllChildrenOfOl() {
     // there are some to remove.
     // Look at the methods `.hasChildNodes` and `removeChild`.
     // There are other ways too, though. Feel free to poke around.
-
-}
-function resetInput() {
-    const input = document.getElementById('new-todo').value;
+ 
 }
